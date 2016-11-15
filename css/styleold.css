@@ -1,0 +1,227 @@
+body {
+	/* background-color: lightgrey; */
+}
+
+* {
+ 	/*outline: red 1px solid; */
+}
+
+.superRedOutline {
+	border: 5px dashed red;
+}
+
+	
+#holding-bag {
+	padding: 2em;
+	margin-top: 100px;
+	margin-left: 3em;
+	margin-right: 3em;
+	margin-bottom:3em;
+	border-bottom-right-radius: 20px;
+	border-bottom-left-radius: 20px;
+	border-style: solid;
+  	border: 5px solid #333399;
+}
+
+#handle {
+    margin-left: 10%;
+    margin-right: 10%;
+    height: 100px;
+    /* background-color: gold; */
+    border-top-left-radius: 100px;
+    border-top-right-radius: 100px;
+    border: 8px solid #3f3b90;
+    border-bottom: 0;
+    box-sizing: border-box;
+    margin-top: -110px;
+    margin-bottom: 20px;
+    	
+}
+
+.title {
+ 	font-family: 'Arima Madurai', cursive;
+	text-align: center;
+	margin-top: -40px;
+	margin-bottom: 20px;
+	font-size: 30px;
+ 	width: 100%;
+}
+	
+#shopping-list-label {
+ 	font-family: 'Arima Madurai', cursive;
+	padding-left: 11%;
+	font-size: 15px;
+}
+
+.list {
+	position: relative;
+	display:table;
+	width: 100%;
+    font-family: 'Cabin', sans-serif;
+    font-size: 20px;
+	
+	/* For testing */
+	/*outline: green 1px solid;*/
+}
+
+.show-list-row, .row, .notes {
+	display: table;
+	position: relative;
+	padding-top: 0.5em;
+	padding-bottom: 0.5em;
+	width: 100%;
+	/* For testing */
+	/* outline: rgba(0, 255, 255, 0.4) 1px solid; */
+}
+.hidden-for-screenreaders {
+	position:absolute;
+	left:-10000px;
+	width: 1px;
+	height: 1px;
+	overflow:hidden;
+}
+
+.show-list-row-prototype {
+	display: none;
+}
+
+.show-list-row:hover {
+	box-shadow: 0 0 1pt 1pt #d4d3ef;
+	border-radius: 15px;
+}
+
+.show-list-row-hovering {
+	box-shadow: 0 0 1pt 1pt #d4d3ef;
+	border-radius: 15px;
+}
+
+.acquired * {
+	color:lightgray;
+	text-decoration:line-through;
+}
+
+.item {
+	border-bottom: dotted lightgrey 1px;
+	width: 88%;
+}	
+
+.column {
+	position: relative;
+	float: left;
+	display:table-cell; 
+	vertical-align:middle;
+	margin-left: 10px;
+}
+
+.quantity {
+	width: 8%;
+	text-align: right;
+	/*outline: green 1px solid;*/
+}
+
+.quantity-button, .item-button {
+	outline: none;
+}
+
+.quantity-button:focus, .item-button:focus {
+	outline: 0.5px lightgray dotted;
+}
+
+.quantity-input {
+	width: 100%;
+	text-align: right;
+}
+
+.item-new {
+	width: 75%;
+}
+
+.item-input {
+	width: 98%;
+	padding-left:5px;
+}
+
+.input-box:focus {
+	outline: #42A377 1px solid;
+}
+
+.input-error {
+	outline: #903f3a 1px dotted;
+}
+
+.input-error:focus {
+	outline: #903f3a 2px dotted;
+}
+
+.button-astext {
+    background:none;
+    border:none;
+    width:100%;
+    text-align:left;
+}
+
+.quantity-button {
+	text-align: right;
+}
+
+.action-button {
+  	background: #42A377;
+  	background-image: linear-gradient(to bottom, #42A377, #4ec08d);
+  	border-radius: 20px;
+	font-family: 'Cabin', sans-serif;
+  	color: #ffffff;
+  	font-size: 15px;
+  	padding: 5px 20px 5px 20px;
+  	text-decoration: none;
+  	border: 0px;  
+}
+
+.action-button:focus {
+	 outline: none;
+}
+
+.action-button:hover, .action-button:focus {
+  	background: #4ec08d;
+  	background-image: linear-gradient(to bottom, #4ec08d, #68c99e);
+  	text-decoration: none;
+}
+
+.action-button:disabled {
+  	background: #a6dfc6;
+  	background-image: linear-gradient(to bottom, #a6dfc6, #d2efe2);
+  	text-decoration: none;
+  	color: #edf8f3;
+}
+
+.edit-row {
+	text-align: center;
+}
+
+#notes-area {
+    font-size: 20px;
+	position: relative;
+	margin-left: 10px;
+	padding-top: 2em;
+	padding-bottom: 0.5em;
+	padding-left: 10%;
+}
+
+#notes-label {
+ 	font-family: 'Arima Madurai', cursive;
+	font-size: 15px;
+ 	position:relative;
+}	
+
+#notes-text {
+	font-family: 'Cabin', sans-serif;
+    font-size: 20px;
+    width: 80%
+}
+
+	
+.shopful-footer {
+	color: #333399;
+ 	font-family: 'Arima Madurai', cursive;
+	font-size: 0.75em;
+	text-align: center;
+}
