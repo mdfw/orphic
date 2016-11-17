@@ -88,6 +88,23 @@ var update_music_brainz_header = function(result) {
 		$('#mb-total-results').text(result.count);
 	}
 }
+var update_music_brainz_results = function(result) {
+	if (result.count == 0) {
+		clear_music_brainz_table();
+	}
+}
+
+var clear_music_brainz_table = function() {
+	var rows = $(".music-brainz-result-row");
+	console.log(rows);
+	rows.remove();
+}
+
+var music_brainz_table_add_row = function(release, artist, date) {
+	var new_row = $("music-brainz-proto-row");
+	
+}
+
 $(document).ready( function() {
 	$( "#search-orphic" ).submit(function( event ) {
   		music_brainz($('#orphic-song-search').val(), $('#orphic-artist-search').val(), $('#orphic-country-search').val(), 0);

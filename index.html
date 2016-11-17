@@ -15,11 +15,11 @@
 <form action="" method="GET" id="search-orphic" class="search-area" label="Search for a song.">
 	<span style="display:inline-block">
 		<label for="orphic-song-search" style="display:block">Song:</label>
-		<input id="orphic-song-search" type="text" name="song" placeholder="happy">
+		<input id="orphic-song-search" type="text" name="song" placeholder="happy" value="Happy">
 	</span>
 	<span style="display:inline-block">
 		<label for="orphic-artist-search" style="display:block">Artist:</label>
-		<input id="orphic-artist-search" type="text" name="artist" placeholder="Pharrell Williams">
+		<input id="orphic-artist-search" type="text" name="artist" placeholder="Pharrell Williams" value="Pharrell Williams">
 	</span>
 	<span style="display:inline-block">
 		<label for="orphic-country-search" style="display:block">Country:</label>
@@ -31,24 +31,37 @@
 
 </form>
 </section>
-<section> <!--Music Brainz seach results -->
+<section id=="brainz"> <!--Music Brainz seach results -->
+<div id="brainz-search-results">
 Total: <span id="mb-total-results">0</span>
-<table>
-	<tr><th>Release</th><th>Artist</th><th>Date</th></tr>
-	<tr><td>Happy</td><td>Pharrell Williams</td><td>2014-01-24</td></tr>
+<table id="brainz-results-table" class="inactive-table results-table ">
+	<tr><th>Release</th><th>Artist</th><th>Released</th></tr>
+	<tr class="music-brainz-result-row"><td>Happy</td><td>Pharrell Williams</td><td>2014-01-24</td></tr>
 </table>
+</div>
+<div id="brainz-result" class="brainz-inactive">
+	<div id="brainz-cover-image"><img src="images/brainz-placeholder-picture.jpg" alt="brainz-placeholder-picture" width="250" height="250"></div><br />
+	<div id="brainz-artist">Pharrell Williams</div><br />
+	<div id="brainz-release-date">2013-12-16</div><br />
+	<div id="brainz-media">Digital Media</div>
+	
+</div>
 </section>
 
 <section> <!-- Youtube results here -->
 
 </section>
 
-<!-- Apple/Amazon/Spotify?? -->
+<!-- Apple/Amazon/Spotify?? --> 
 
 
 
 
 <footer class="oofooter">Copyright &copy; 2016 Mark Williams</footer>
+
+<table sytle="hidden:true">
+<tr class="music-brainz-proto-row"><td></td><td></td><td></td></tr>
+</table>
 
 <script src="js/jquery-2.2.4.js">
 </script>
