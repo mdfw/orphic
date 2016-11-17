@@ -56,7 +56,8 @@ var music_brainz = function(release, artist, country, skip) {
 		query: search_query,
 		//query: release_search,
 		fmt: 'json',
-		limit: offset
+		limit: 5,
+		offset: offset
 	};
 	
 	console.dir(request);
@@ -83,9 +84,7 @@ var music_brainz = function(release, artist, country, skip) {
 }
 
 var update_music_brainz_header = function(result) {
-	console.log('count: ' + result.count);
 	if (result.count > 0) {
-		console.log('setting');
 		$('#mb-total-results').text(result.count);
 	}
 }

@@ -4,27 +4,39 @@
 	<meta charset="utf-8" />
 	<title> Orphic </title>
 	<link rel="stylesheet" href="css/style.css">
-	<link href="https://fonts.googleapis.com/css?family=Arima+Madurai" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Cabin" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
 </head>
 <body>
 <header class="ooheader">
-	Orphic 
-
+	<img src="images/lyre.svg" alt="Lyre" width="40px" height="40px"> Orphic 
+</header>
+<section id="oosearchform">
 <form action="" method="GET" id="search-orphic" class="search-area" label="Search for a song.">
-  <label for="orphic-song-search">Song:</label>
-  <input id="orphic-song-search" type="text" name="song" placeholder="happy">
-  <label for="orphic-artist-search">Artist:</label>
-  <input id="orphic-artist-search" type="text" name="artist" placeholder="Pharrell Williams">
-  <label for="orphic-country-search">Country:</label>
-  <input id="orphic-country-search" type="text" name="country" value="US" placeholder="US">
-  <input type="submit" value="Search">
+	<span style="display:inline-block">
+		<label for="orphic-song-search" style="display:block">Song:</label>
+		<input id="orphic-song-search" type="text" name="song" placeholder="happy">
+	</span>
+	<span style="display:inline-block">
+		<label for="orphic-artist-search" style="display:block">Artist:</label>
+		<input id="orphic-artist-search" type="text" name="artist" placeholder="Pharrell Williams">
+	</span>
+	<span style="display:inline-block">
+		<label for="orphic-country-search" style="display:block">Country:</label>
+		<input id="orphic-country-search" type="text" name="country" value="US" placeholder="US" size=2>
+	</span>
+	<span style="display:inline-block">
+		<input type="submit" value="Search">
+	</span>
 
 </form>
-</header>
-
+</section>
 <section> <!--Music Brainz seach results -->
-Total: <div id="mb-total-results">0</div>
+Total: <span id="mb-total-results">0</span>
+<table>
+	<tr><th>Release</th><th>Artist</th><th>Date</th></tr>
+	<tr><td>Happy</td><td>Pharrell Williams</td><td>2014-01-24</td></tr>
+</table>
 </section>
 
 <section> <!-- Youtube results here -->
@@ -46,3 +58,4 @@ Total: <div id="mb-total-results">0</div>
 </html>
 
 <!-- http://www.59times.com/Legacy/color-palette-generator/color-palette-generator.aspx?colour=6633ff -->
+<!-- https://www.flickr.com/photos/samwellfusco/2923539152w-4CFGuT-63kRn3-9oLeCE-4kzedt-fFUgZ-fFUgH-63gCqx-4kzf5z-aMxVD8-fFUha-iCJh53-q4CrvM-5Dbx3z-4kzdV6-jaGGn-jaGGo-c7CMCL-->
