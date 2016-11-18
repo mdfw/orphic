@@ -9,7 +9,7 @@
 </head>
 <body>
 <header class="ooheader">
-	<img src="images/lyre.svg" alt="Lyre" width="40px" height="40px"> Orphic 
+	<img src="images/lyre.svg" alt="Lyre" width="40px" height="40px"> <span>Orphic</span> 
 </header>
 <section id="oosearchform">
 <form action="" method="GET" id="search-orphic" class="search-area" label="Search for a song.">
@@ -33,10 +33,10 @@
 </section>
 <section id=="brainz"> <!--Music Brainz seach results -->
 <div id="brainz-search-results">
-Total: <span id="mb-total-results">0</span>
+Total results: <span id="mb-total-results">0</span>
 <table id="brainz-results-table" class="inactive-table results-table ">
 	<tr><th>Release</th><th>Artist</th><th>Released</th></tr>
-	<tr class="music-brainz-result-row"><td>Happy</td><td>Pharrell Williams</td><td>2014-01-24</td></tr>
+	<tr class="music-brainz-result-row"><td>Happy</td><td>Pharrell Williams</td><td>2014-01-24</td><td class="brainz-id-cell"></td></tr>
 </table>
 </div>
 <div id="brainz-result" class="brainz-inactive">
@@ -60,7 +60,7 @@ Total: <span id="mb-total-results">0</span>
 <footer class="oofooter">Copyright &copy; 2016 Mark Williams</footer>
 
 <table sytle="hidden:true">
-<tr class="music-brainz-proto-row"><td></td><td></td><td></td></tr>
+<tr class="music-brainz-proto-row"><td class="brainz-result-release-cell"></td><td class="brainz-result-artist-cell"></td><td class="brainz-result-date-cell"></td><td class="brainz-result-id-cell"></td></tr>
 </table>
 
 <script src="js/jquery-2.2.4.js">
