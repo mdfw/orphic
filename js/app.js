@@ -1,11 +1,24 @@
 // http://musicbrainz.org/ws/2/release/?query=happy&artist:Pharrell%20Williams&fmt=json&country:US
 
+var showError = function(error) {
+	console.log("Showing error: " + error);
+	if (errorText) {
+		$("#errorText").text("Error: " + error);
+		$("#errorAlert").removeClass("error-inactive").addClass("error-active");
+		
+	}
+}
+
+var clearError = function(event) {
+	$("#errorText").text("");
+	$("#errorAlert").removeClass("error-active").addClass("error-inactive");
+}
+
 var youtubeGet = function(search) {
-	// the parameters we need to pass in our request to StackOverflow's API
 	var request = { 
 		part: 'snippet',
 		key: 'AIzaSyATFOByRDvvLMx1dDK5t-HSKnP1t4YbVvo',
-		q: 'like a virgin madonna'
+		q: search
 	};
 	
 	$.ajax({
@@ -25,8 +38,7 @@ var youtubeGet = function(search) {
 		});
 	})
 	.fail(function(jqXHR, error){ //this waits for the ajax to return with an error promise object
-		var errorElem = showError(error);
-		$('.search-results').append(errorElem);
+		showError(error);
 	});
 };
 
@@ -38,21 +50,23 @@ var youtube_iframe_player = function (video_id) {
 
 
 /****** music brainz **************/
-var music_brainz_search = function(release, artist, country, skip) {
-	console.log("Search release: " + release + "  artist: " + artist + " country: " + country + " skip: " + skip);
-	if (!release) {
+var music_brainz_search = function(song, artist, country, skip) {
+	if (!song) {
+		showError("Must include at least a song to search for.");
 		return;
 	}
 	var offset = 0;
 	if (skip > 0) {
 		offset = skip;
 	}
-	var search_query = release;
+	var search_query = song;
+	var search_description = song;
 	if (country) {
-		var search_query = release + ' AND country:' + country;
+		search_query = search_query + ' AND country:' + country;
 	}
 	if (artist) {
 		search_query = search_query + ' AND artist:' + artist;
+		search_description = search_description + ' by ' + artist;
 	}
 	var request = { 
 		query: search_query,
@@ -60,29 +74,58 @@ var music_brainz_search = function(release, artist, country, skip) {
 		limit: 5,
 		offset: offset
 	};
-		
+	music_brainz_results_header_update("Searching", "for " + search_description + ".");
+	music_brainz_results_footer_prepare(song, artist, country);
 	$.ajax({
-		url: "http://musicbrainz.org/ws/2/release/",
+		url: "http://musicbrainz.org/ws/2/recording/",
 		data: request,
 		type: "GET",
 
 	})
 	.done(function(result){ 
 		console.log("finished with result: ", result);
-		music_brainz_header_update(result);
+		music_brainz_results_header_update("Found " + result.count + " MusicBrainz results ");
 		music_brainz_results_update(result);
+		music_brainz_results_footer_update(result);
 	})
-	.fail(function(jqXHR, error){ //this waits for the ajax to return with an error promise object
-		var errorElem = showError(error);
-		$('.search-results').append(errorElem);
+	.fail(function(jqXHR, error, errorText){ //this waits for the ajax to return with an error promise object
+		showError(errorText);
 	});
 }
 
-var music_brainz_header_update = function(results) {
-	if (results.count > 0) {
-		$('#mb-total-results').text(results.count);
+var music_brainz_results_header_update = function(status, forwhat) {
+	$("#mb-total-results").html(status);
+	if (forwhat) {
+		$('#mb-searching-for').html(forwhat);
 	}
 }
+
+var music_brainz_results_footer_prepare = function(song, artist, country) {
+	$("#brainz-skip-prev").attr("disabled", "disabled").addClass("music-brainz-steppers-inactive");
+	$("#brainz-skip-next").attr("disabled", "disabled").addClass("music-brainz-steppers-inactive");
+	$("#brainz-skip-song").val(song);
+	$("#brainz-skip-artist").val(artist);
+	$("#brainz-skip-country").val(country);
+}
+
+var music_brainz_results_footer_update = function(results) {
+	$("#brainz-skip-offset").val(results.offset);
+	music_brainz_results_footer_next(results);
+	music_brainz_results_footer_previous(results);
+}
+
+var music_brainz_results_footer_previous = function(results) {
+	if (results.offset > 0) {
+		$("#brainz-skip-prev").removeAttr("disabled").removeClass("music-brainz-steppers-inactive");
+	}
+}
+
+var music_brainz_results_footer_next = function(results) {
+	if (results.count > results.offset + results.recordings.length) {
+		$("#brainz-skip-next").removeAttr("disabled").removeClass("music-brainz-steppers-inactive");
+	}
+}
+
 var music_brainz_results_update = function(results) {
 	if (results.count == 0) {
 		music_brainz_table_reset();
@@ -94,22 +137,25 @@ var music_brainz_results_update = function(results) {
 
 var music_brainz_results_update_rows_from_results = function(results) {
 	music_brainz_table_clear();
-	console.log("+++++++ update_rows_from_results ++++++++");
 	var artist = "No artist";
 	var title = "No title";
-	var date = "No date";
-	console.log("Results:");
-	console.dir(results);
-	len = results.releases.length;
-	for (i=0; i<len; ++i) {
-		if (i in results.releases) {
-    		release = results.releases[i];
-			title = release.title + "(" + release.id + ")";
-			title = title;
-			artist = release['artist-credit'][0].artist.name
-			date = release.date;
-			identifier = release.id;
-			music_brainz_table_add_row(title, artist, date, identifier);
+	var release_set = "No releases";
+	var recordingslen = results.recordings.length;
+	for (r=0; r<recordingslen; ++r) {
+		if (r in results.recordings) {
+    		recording = results.recordings[r];
+			title = recording.title;
+			artist = recording['artist-credit'][0].artist.name
+			release_set = '';
+			if (recording.releases && recording.releases[0].title) {
+				release_set = '"' + recording.releases[0].title + '"';
+				if (recording.releases.length > 1) {
+					var nummore = recording.releases.length - 1;
+					release_set = release_set + " <i>and " + nummore + " more.</i>"
+				}
+			}
+			identifier = recording.id;
+			music_brainz_table_add_row(title, artist, release_set, identifier, recording);
   		}
 	}
 }
@@ -127,29 +173,30 @@ var music_brainz_table_set_active = function(active) {
 var music_brainz_table_reset = function() {
 	music_brainz_table_set_active(false);
 	music_brainz_table_clear();
-	music_brainz_table_add_row("Happy", "Pharrell Williams", "2014-01-24");
+	music_brainz_table_add_row("Happy", "Pharrell Williams", "Bob");
 }
 
 var music_brainz_table_clear = function() {
 	var rows = $(".music-brainz-result-row");
-	console.log(rows);
 	rows.remove();
 }
 
-var music_brainz_table_add_row = function(release, artist, date, identifier) {
+var music_brainz_table_add_row = function(release, artist, releases, identifier, recording_info) {
 	var new_row = $(".music-brainz-proto-row").clone();
-	var release_cell = new_row.find('.brainz-result-release-cell')
+	var release_cell = new_row.find('.brainz-result-recording-cell')
 	release_cell.text(release);
 	var artist_cell = new_row.find('.brainz-result-artist-cell')
 	artist_cell.text(artist);
-	var date_cell = new_row.find('.brainz-result-date-cell')
-	date_cell.text(date);
+	var releases_cell = new_row.find('.brainz-result-releases-cell')
+	releases_cell.html(releases);
 	var identifier_cell = new_row.find('.brainz-result-id-cell')
 	identifier_cell.text(identifier);
 	
 	new_row.removeClass("music-brainz-proto-row");
 	new_row.addClass("music-brainz-result-row");
 	new_row.addClass(identifier);
+	new_row.data("recording", recording_info);
+	new_row.data("inflated", false);
 	var results_table = $("#brainz-results-table");
 	results_table.append(new_row);
 	$("." + identifier).click(function(event) {
@@ -158,13 +205,62 @@ var music_brainz_table_add_row = function(release, artist, date, identifier) {
 	});
 }
 
+var music_brainz_build_releases = function(releases) {
+	var releases_set = [];
+	releaseslen = releases.length;
+	for (i=0; i<releaseslen; ++i) {
+		if (i in releases) {
+    		release = releases[i];
+			var releaseattr = [];
+			if (release.date) {
+				releaseattr.push(release.date);
+			}
+			var title = '"' + release.title + '"';
+			if (releaseattr.length > 0) {
+				title = title + " (" + releaseattr.join(" ,") + ")";
+			}
+			releases_set.push(title);
+  		}
+	}
+	return releases_set.join("<br />");
+}
+
 var music_brainz_table_row_clicked = function(event) {
 	var curTarget = event.currentTarget;
 	var identifier_cell = $(curTarget).find('.brainz-result-id-cell');
 	var identifier = identifier_cell.text();
-	music_brainz_table_clear_selected_row();
-	music_brainz_table_mark_selected_row(curTarget);
-	music_brainz_get_detail(identifier);
+	//music_brainz_table_clear_selected_row();
+	//music_brainz_table_mark_selected_row(curTarget);
+	if ($("." + identifier).data("inflated")) {
+		music_brainz_deflate_row(identifier);
+	} else {
+		music_brainz_inflate_row(identifier);
+	}
+}
+
+var music_brainz_inflate_row = function(identifier) {
+	var this_row = $("." + identifier);
+	var recording = this_row.data("recording");
+	var all_releases = music_brainz_build_releases(recording.releases);
+	var releases_cell = this_row.find('.brainz-result-releases-cell')
+	releases_cell.html(all_releases);
+	this_row.data("inflated", true);
+}
+
+var music_brainz_deflate_row = function(identifier) {
+	var this_row = $("." + identifier);
+	var recording = this_row.data("recording");
+	var release_set = '';
+	if (recording.releases && recording.releases[0].title) {
+		release_set = '"' + recording.releases[0].title + '"';
+		if (recording.releases.length > 1) {
+			var nummore = recording.releases.length - 1;
+			release_set = release_set + " <i>and " + nummore + " more.</i>"
+		}
+	}
+	var releases_cell = this_row.find('.brainz-result-releases-cell')
+	releases_cell.html(release_set);
+	this_row.data("inflated", false);
 }
 
 var music_brainz_table_clear_selected_row = function() {
@@ -180,69 +276,48 @@ var music_brainz_table_mark_selected_row = function(row) {
 	}	
 }
 
-var music_brainz_get_detail = function(identifier) {
-	console.log("Getting detail == identifier: " + identifier);
-	var request = { 
-		fmt: 'json',
-		inc: 'aliases+artist-credits+discids+labels+recordings'
-	};	
-	$.ajax({
-		url: "http://musicbrainz.org/ws/2/release/" + identifier,
-		data: request,
-		type: "GET",
 
-	})
-	.done(function(result){ 
-		console.log("finished detail with result: ", result);
-		music_brainz_detail_parse(result);
-		
-	})
-	.fail(function(jqXHR, error){ //this waits for the ajax to return with an error promise object
-		var errorElem = showError(error);
-		$('.search-results').append(errorElem);
-	});
-}
-
-var music_brainz_detail_parse = function(release) {
-	var artist = release['artist-credit'][0].artist.name;
-	var release_date = release.date;
-	var media = release['media'][0].format;
-	music_brainz_details_update(artist, release_date, media);
-	var coverart_avail = release['cover-art-archive'].artwork;
-	if (coverart_avail) {
-		//music_brainz_get_cover(release.id);
-		var htmlstring = '<img src="http://coverartarchive.org/release/' + release.id + '/front" alt="Picture of front cover of ' + release.title + '" width="250" height="250">'
-		$("#brainz-cover-image").html(htmlstring);
-	} else {
-		var htmlstring = empty_cover_image(release.title)
-		console.log(htmlstring);
-		$("#brainz-cover-image ").html(htmlstring);
-	}
-}
-
-var music_brainz_details_update = function(artist, release_date, media) {
-	if (!artist && !release_date && !media) {
-		$("#brainz-result").removeClass("brainz-active").addClass("brainz-inactive");
-		return;
-	}
-	$("#brainz-artist").text(artist);
-	$("#brainz-release-date").text(release_date);
-	$("#brainz-media").text(media);
-	$("#brainz-result").removeClass("brainz-inactive").addClass("brainz-active");
-}
-
-var empty_cover_image = function(title) {
-	if (title) {
-		title = '"'+title+'"';
-	}
-	var img = '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="250" height="250"  xml:space="preserve" id="canvas1"><rect id="canvas1-rectangle" stroke="none" fill="rgb(235, 232, 232)" x="0" y="0" width="250" height="250" /><text  fill="rgb(170, 170, 170)" font-family="Comfortaa, sans-serif" font-size="16" x="94.69" y="0" text-anchor="middle"><tspan x="125" y="119">' + title + '</tspan><tspan x="125" y="137.6">cover image not available</tspan></text></svg>'
-	return img;
-
-}
 $(document).ready( function() {
 	$( "#search-orphic" ).submit(function( event ) {
-  		music_brainz_search($('#orphic-song-search').val(), $('#orphic-artist-search').val(), $('#orphic-country-search').val(), 0);
+		run_search(0);
   		event.preventDefault();
 	});
+	$( "#brainz-skip" ).submit(function( event ) {
+		brainz_skip_search(event);
+  		event.preventDefault();
+	});
+
+	$("#errorAck").click(function(event) {
+		clearError(event);
+		event.preventDefault();
+	});
+
 });
 
+function run_search(skip) {
+	var song = $('#orphic-song-search').val();
+	var artist = $('#orphic-artist-search').val();
+	var country = $('#orphic-country-search').val();
+	if (!song) {
+		showError("Must include at least a song to search for.");
+		return;
+	}
+
+	music_brainz_search(song, artist, country, skip);
+	//var youtubequery = song + " " + artist;
+  	//youtubeGet(youtubequery)
+}
+
+function brainz_skip_search(event) {
+	var song = $('#brainz-skip-song').val();
+	var artist = $('#brainz-skip-artist').val();
+	var country = $('#brainz-skip-country').val();
+	var offset = Number($('#brainz-skip-offset').val());
+	var button_id = document.activeElement.getAttribute('id');
+	if (button_id === "brainz-skip-next") {
+		offset = offset + 5;
+	} else if (button_id === "brainz-skip-prev") {
+		offset = offset - 5;
+	}
+	music_brainz_search(song, artist, country, offset);
+}

@@ -1,79 +1,68 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-	<meta charset="utf-8" />
-	<title> Orphic </title>
-	<link rel="stylesheet" href="css/style.css">
-	<link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
+    <meta charset="utf-8">
+
+    <title>Orphic</title>
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="js/html5.js"></script>
 </head>
+
 <body>
-<header class="ooheader">
-	<img src="images/lyre.svg" alt="Lyre" width="40px" height="40px"> <span>Orphic</span> 
-</header>
-<section id="oosearchform">
-<form action="" method="GET" id="search-orphic" class="search-area" label="Search for a song.">
-	<span style="display:inline-block">
-		<label for="orphic-song-search" style="display:block">Song:</label>
-		<input id="orphic-song-search" type="text" name="song" placeholder="happy" value="Happy">
-	</span>
-	<span style="display:inline-block">
-		<label for="orphic-artist-search" style="display:block">Artist:</label>
-		<input id="orphic-artist-search" type="text" name="artist" placeholder="Pharrell Williams" value="Pharrell Williams">
-	</span>
-	<span style="display:inline-block">
-		<label for="orphic-country-search" style="display:block">Country:</label>
-		<input id="orphic-country-search" type="text" name="country" value="US" placeholder="US" size=2>
-	</span>
-	<span style="display:inline-block">
-		<input type="submit" value="Search">
-	</span>
+    <header class="ooheader"><img src="images/lyre.svg" alt="Lyre" width="40px" height="40px"> <span id="orphic-title">Orphic</span><br /><span id="orphic-title-sub">Music search by Mark Williams - Copyright &copy; 2016</span></header>
 
-</form>
-</section>
-<section id=="brainz"> <!--Music Brainz seach results -->
-<div id="brainz-search-results">
-Total results: <span id="mb-total-results">0</span>
-<table id="brainz-results-table" class="inactive-table results-table ">
-	<tr><th>Release</th><th>Artist</th><th>Released</th></tr>
-	<tr class="music-brainz-result-row"><td>Happy</td><td>Pharrell Williams</td><td>2014-01-24</td><td class="brainz-id-cell"></td></tr>
-</table>
-</div>
-<div id="brainz-result" class="brainz-inactive">
-	<div id="brainz-cover-image">
-		<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="250" height="250"  xml:space="preserve" id="canvas1">
-    <rect id="canvas1-rectangle" stroke="none" fill="rgb(235, 232, 232)" x="0" y="0" width="250" height="250" />
-    <text  fill="rgb(170, 170, 170)" font-family="Comfortaa, sans-serif" font-size="16" x="76.95" y="0" text-anchor="middle"><tspan x="125" y="128">No selection</tspan></text>
-</svg>
-</div><br />
-	<div id="brainz-artist">Pharrell Williams</div><br />
-	<div id="brainz-release-date">2013-12-16</div><br />
-	<div id="brainz-media">Digital Media</div>
-	<img src="images/brainz-placeholder-picture.jpg" alt="brainz-placeholder-picture" width="250" height="250">
-</div>
-</section>
+    <section id="oosearchform">
+        <form action="" method="get" id="search-orphic" class="search-area" label="Search for a song.">
+            <span style="display:inline-block"><label for="orphic-song-search" style="display:block">Song:</label> <input id="orphic-song-search" type="text" name="song" placeholder="happy" value="Happy"></span> <span style="display:inline-block"><label for="orphic-artist-search" style="display:block">Artist:</label> <input id="orphic-artist-search" type="text" name="artist" placeholder="Pharrell Williams" value="Pharrell Williams"></span> <span style="display:inline-block"><label for="orphic-country-search" style="display:block">Country:</label> <input id="orphic-country-search" type="text" name="country" value="US" placeholder="US" size="2"></span> <span style="display:inline-block"><input type="submit" value="Search"></span>
+        </form>
+    </section>
 
-<section> <!-- Youtube results here -->
+    <section id="errorAlert" class="error-inactive"><span id="errorText"></span> <span id="errorClear"><a href="#" id="errorAck">clear</a></span></section>
 
-</section>
+    <section id="brainz">
+        <!--Music Brainz seach results -->
 
-<!-- Apple/Amazon/Spotify?? --> 
+        <div id="brainz-search-results">
+		    <table sytle="display: none">
+		        <tr class="music-brainz-proto-row">
+		            <td class="brainz-result-recording-cell"></td>
+		            <td class="brainz-result-artist-cell"></td>
+		            <td class="brainz-result-releases-cell"></td>
+		            <td class="brainz-result-id-cell"></td>
+		        </tr>
+		    </table>
+		    <span id="mb-table-header"><span id="mb-total-results"></span><span id="mb-searching-for"></span></span>
+            <table id="brainz-results-table" class="inactive-table results-table">
+                <tr>
+                    <th>Recording</th>
+                    <th>Artist</th>
+                    <th>On</th>
+                </tr>
+
+                <tr class="music-brainz-result-row">
+                    <td>Happy</td>
+                    <td>Pharrell Williams</td>
+                    <td>Despicable Me 2</td>
+                    <td class="brainz-id-cell"></td>
+                </tr>
+            </table><span id="music-brainz-steppers"></span>
+
+            <form action="brainz-skip" id="brainz-skip">
+                <span id="music-brainz-steppers"><input type="hidden" name="song" value="" id="brainz-skip-song"> <input type="hidden" name="artist" value="" id="brainz-skip-artist"> <input type="hidden" name="country" value="" id="brainz-skip-country"> <input type="hidden" name="offset" value="" id="brainz-skip-offset"> <span id="music-brainz-steppers-prev"><input id="brainz-skip-prev" type="submit" value="&lt; Previous" disabled="disabled" class="music-brainz-steppers-inactive"></span> <span id="music-brainz-steppers-next"><input id="brainz-skip-next" type="submit" value="Next &gt;" disabled="disabled" class="music-brainz-steppers-inactive"></span></span>
+            </form>
+        </div>
+    </section>
+
+    <!-- Apple/Amazon/Spotify?? -->
 
 
 
-
-<footer class="oofooter">Copyright &copy; 2016 Mark Williams</footer>
-
-<table sytle="hidden:true">
-<tr class="music-brainz-proto-row"><td class="brainz-result-release-cell"></td><td class="brainz-result-artist-cell"></td><td class="brainz-result-date-cell"></td><td class="brainz-result-id-cell"></td></tr>
-</table>
-
-<script src="js/jquery-2.2.4.js">
-</script>
-<script src="js/app.js">
-</script>
+<script src="js/jquery-2.2.4.js" type="text/javascript">
+</script><script src="js/app.js" type="text/javascript">
+</script><!-- http://www.59times.com/Legacy/color-palette-generator/color-palette-generator.aspx?colour=6633ff -->
+    <!-- https://www.flickr.com/photos/samwellfusco/2923539152w-4CFGuT-63kRn3-9oLeCE-4kzedt-fFUgZ-fFUgH-63gCqx-4kzf5z-aMxVD8-fFUha-iCJh53-q4CrvM-5Dbx3z-4kzdV6-jaGGn-jaGGo-c7CMCL-->
 </body>
 </html>
-
-<!-- http://www.59times.com/Legacy/color-palette-generator/color-palette-generator.aspx?colour=6633ff -->
-<!-- https://www.flickr.com/photos/samwellfusco/2923539152w-4CFGuT-63kRn3-9oLeCE-4kzedt-fFUgZ-fFUgH-63gCqx-4kzf5z-aMxVD8-fFUha-iCJh53-q4CrvM-5Dbx3z-4kzdV6-jaGGn-jaGGo-c7CMCL-->
