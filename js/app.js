@@ -74,7 +74,7 @@ var music_brainz_search = function(song, artist, country, skip) {
 		limit: 5,
 		offset: offset
 	};
-	music_brainz_results_header_update("Searching", "for " + search_description + ".");
+	music_brainz_results_header_update("Searching", " for " + search_description + ".");
 	music_brainz_results_footer_prepare(song, artist, country);
 	$.ajax({
 		url: "https://musicbrainz.org/ws/2/recording/",
@@ -83,7 +83,6 @@ var music_brainz_search = function(song, artist, country, skip) {
 
 	})
 	.done(function(result){ 
-		console.log("finished with result: ", result);
 		music_brainz_results_header_update("Found " + result.count + " MusicBrainz results ");
 		music_brainz_results_update(result);
 		music_brainz_results_footer_update(result);
