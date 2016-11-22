@@ -15,8 +15,9 @@
 
     <section id="oosearchform">
         <form action="" method="get" id="search-orphic" class="search-area" label="Search for a song.">
-            <span style="display:inline-block"><label for="orphic-song-search" style="display:block">Song:</label> <input id="orphic-song-search" type="text" name="song" placeholder="happy" value=""></span> <span style="display:inline-block"><label for="orphic-artist-search" style="display:block">Artist:</label> <input id="orphic-artist-search" type="text" name="artist" placeholder="Pharrell Williams" value=""></span> <span style="display:inline-block"><label for="orphic-country-search" style="display:block">Country:</label> <input id="orphic-country-search" type="text" name="country" value="US" placeholder="US" size="2"></span> <span style="display:inline-block"><input type="submit" value="Search"></span>
+            <span style="display:inline-block"><label for="orphic-song-search" style="display:block">Song:</label> <input id="orphic-song-search" type="text" name="song" placeholder="happy" value=""></span> <span style="display:inline-block"><label for="orphic-artist-search" style="display:block">Artist:</label> <input id="orphic-artist-search" type="text" name="artist" placeholder="Pharrell Williams" value=""></span> <span style="display:inline-block"><label for="orphic-country-search" style="display:block">Country:</label> <input id="orphic-country-search" type="text" name="country" value="US" placeholder="US" size="2"></span> <span style="display:inline-block"><input type="submit" id="orphic-search-button" value="Search"></span><span id="search-spinner-loc"></span>
         </form>
+        
     </section>
 
     <section id="errorAlert" class="error-inactive"><span id="errorText"></span> <span id="errorClear"><a href="#" id="errorAck">clear</a></span></section>
@@ -33,7 +34,7 @@
 		            <td class="brainz-result-id-cell"></td>
 		        </tr>
 		    </table>
-		    <span id="mb-table-header"><span id="mb-total-results"></span><span id="mb-searching-for"></span></span>
+		    <span id="mb-table-header"></span>
             <table id="brainz-results-table" class="inactive-table results-table">
                 <tr>
                     <th>Recording</th>
@@ -47,11 +48,12 @@
                     <td>Despicable Me 2</td>
                     <td class="brainz-id-cell"></td>
                 </tr>
-            </table><span id="music-brainz-steppers"></span>
+            </table>
 
-            <form action="brainz-skip" id="brainz-skip">
-                <span id="music-brainz-steppers"><input type="hidden" name="song" value="" id="brainz-skip-song"> <input type="hidden" name="artist" value="" id="brainz-skip-artist"> <input type="hidden" name="country" value="" id="brainz-skip-country"> <input type="hidden" name="offset" value="" id="brainz-skip-offset"> <span id="music-brainz-steppers-prev"><input id="brainz-skip-prev" type="submit" value="&lt; Previous" disabled="disabled" class="music-brainz-steppers-inactive"></span> <span id="music-brainz-steppers-next"><input id="brainz-skip-next" type="submit" value="Next &gt;" disabled="disabled" class="music-brainz-steppers-inactive"></span></span>
-            </form>
+             <span id="music-brainz-steppers">
+            	<span id="music-brainz-steppers-prev"><form action="brainz-skip" id="brainz-skip-prev"><input type="submit" value="&lt; Previous" disabled="disabled" class="music-brainz-steppers-inactive"></form></span> 
+                <span id="music-brainz-steppers-next"><form action="brainz-skip" id="brainz-skip-next"><input type="submit" value="Next &gt;" disabled="disabled" class="music-brainz-steppers-inactive"></form></span>
+	          </span>
         </div>
     </section>
 
