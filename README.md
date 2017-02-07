@@ -2,6 +2,9 @@
 ## Description
 Search MusicBrainz and YouTube for information about songs.
 
+## Try it
+[https://mdfw.github.io/orphic/](https://mdfw.github.io/orphic/)
+
 ## Features
 * jQuery
 * Javascript
