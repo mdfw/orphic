@@ -1,7 +1,7 @@
 body {
 	background-color: #ffefea;
 	font-family: 'Josefin Sans', sans-serif;
-	width: 700px;
+	max-width: 800px;
 
 	/* background-color: lightgrey; */
 	/* font-family: 'Josefin Sans', sans-serif;*/
@@ -31,16 +31,14 @@ header {
 
 #orphic-title-sub {
 	font-size: .75em;
-	text-align:center;
+	text-align: center;
 }
 
 
 #oosearchform {
-	text-align:center;
+	text-align: center;
 	padding:.5em 0;
-
 }
-
 
 #errorAlert {
 	color: red;
@@ -48,18 +46,26 @@ header {
 }
 
 .error-inactive {
-	display:none;
+	display: none;
 }
 
+
 #brainz {
-	max-width: 700px;
 }
 
 #brainz-search-results {
-	float: left;
 	padding: 1em;
 }
 
+#brainz-search-content {
+  margin: auto;
+}
+#brainz-results-table {
+  margin: auto;
+}
+#brainz-header {
+  margin: auto;
+}
 #mb-table-header {
 	padding: 1em;
 }
@@ -112,6 +118,10 @@ header {
 	display:none;
 }
 
+.youtube-result-row-proto {
+	display:none;
+}
+
 #music-brainz-steppers-prev {
 	float:left;	
 }
@@ -122,29 +132,47 @@ header {
 	display:none;
 }
 
+#youtube-search-results {
+  margin: 10px;
+}
 
 #youtube {
 	float:left;
 	padding: 1em;
-	max-width: 700;
+}
+#youtube-results-header {
+  font-size: 1.2em;
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 10px;
 }
 
-.youtube-thumb {
+.youtube-results-header-hidden {
+ 	display: none;
+}
+
+.youtube-result-row {
+  padding: 5px;
+  margin-top: 10px;
+}
+.youtube-thumbnail {
 	float:left;
-	margin-right: 10px;
-
+	width: 150px;
 }
 
-.youtube-content {
-	float:right;
-	padding: 10px;
+.youtube-title {
+  padding: 5px;
+  font-weight: bold;
 }
 
-.youtube-content * {
-	display:block;
-	margin-bottom: 10px;
+.youtube-description {
+  padding: 5px;
 }
 
+.youtube-date {
+  font-size: 12px;
+  padding: 5px;
+}
 
 
 .spinner {

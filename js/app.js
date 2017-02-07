@@ -32,9 +32,12 @@ var youtubeGet = function(search) {
 		
 	})
 	.done(function(result){ 
-
+  	var rows = $(".youtube-result-row");
+  	rows.remove();
+    var youtube_header = $(".youtube-results-header-hidden");
+    youtube_header.removeClass("youtube-results-header-hidden");
 		$.each(result.items, function(i, item) {
-			console.dir(item);
+  		youtube_results_add_row(item.snippet.channelId, item.snippet.channelTitle, item.snippet.description, item.snippet.publishedAt, item.snippet.thumbnails, item.snippet.title, item.id.videoId);
 		});
 	})
 	.fail(function(jqXHR, error){ //this waits for the ajax to return with an error promise object
@@ -50,6 +53,30 @@ var youtube_iframe_player = function (video_id) {
 
 var current_mb_search;
 var cancel_search_timer;
+
+
+var youtube_results_add_row = function(channelId, channelTitle, description, publishedAt, thumbnails, title, videoId) {
+	var new_row = $(".youtube-result-row-proto").clone();
+	var thumbnail_img = new_row.find('.youtube-thumb-image');
+	thumbnail_img.attr('src', thumbnails.default.url);
+	var thumbnail_link = new_row.find('.youtube-link');
+	thumbnail_link.attr('href', "https://www.youtube.com/watch?v=" + videoId);
+	
+	var title_cell = new_row.find('.youtube-title')
+	title_cell.text(title);
+	
+	var desc_cell = new_row.find('.youtube-description')
+	desc_cell.text(description);
+	
+	var date_cell = new_row.find('.youtube-date')
+	date_cell.text(channelTitle + "  " + publishedAt);
+	
+	new_row.removeClass("youtube-result-row-proto");
+	new_row.addClass("youtube-result-row");
+	var results_table = $("#youtube-search-results");
+	results_table.append(new_row);
+}
+
 
 /****** music brainz **************/
 var music_brainz_search = function(song, artist, country, skip) {
@@ -341,8 +368,8 @@ function run_search(skip) {
 	}
 
 	music_brainz_search(song, artist, country, skip);
-	//var youtubequery = song + " " + artist;
-  	//youtubeGet(youtubequery)
+  var youtubequery = song + " " + artist;
+  youtubeGet(youtubequery)
 }
 
 function brainz_skip_search(newoffset) {

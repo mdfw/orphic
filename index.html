@@ -21,42 +21,61 @@
     </section>
 
     <section id="errorAlert" class="error-inactive"><span id="errorText"></span> <span id="errorClear"><a href="#" id="errorAck">clear</a></span></section>
-
-    <section id="brainz">
         <!--Music Brainz seach results -->
 
-        <div id="brainz-search-results">
-		    <table sytle="display: none">
+      <div id="brainz-search-results">
+  		    <table sytle="display: none">
 		        <tr class="music-brainz-proto-row">
-		            <td class="brainz-result-recording-cell"></td>
-		            <td class="brainz-result-artist-cell"></td>
-		            <td class="brainz-result-releases-cell"></td>
-		            <td class="brainz-result-id-cell"></td>
+	            <td class="brainz-result-recording-cell"></td>
+	            <td class="brainz-result-artist-cell"></td>
+	            <td class="brainz-result-releases-cell"></td>
+	            <td class="brainz-result-id-cell"></td>
 		        </tr>
-		    </table>
-		    <span id="mb-table-header"></span>
+  		    </table>
+         <div id="brainz-search-content">
+            <div id="brainz-header">
+              <span id="mb-table-header"></span>
+            </div>
             <table id="brainz-results-table" class="inactive-table results-table">
-                <tr>
-                    <th>Recording</th>
-                    <th>Artist</th>
-                    <th>On</th>
-                </tr>
-
-                <tr class="music-brainz-result-row">
-                    <td>Happy</td>
-                    <td>Pharrell Williams</td>
-                    <td>Despicable Me 2</td>
-                    <td class="brainz-id-cell"></td>
-                </tr>
+              <tr>
+                <th>Recording</th>
+                <th>Artist</th>
+                <th>On</th>
+              </tr>
+              <tr class="music-brainz-result-row">
+                <td>Happy</td>
+                <td>Pharrell Williams</td>
+                <td>Despicable Me 2</td>
+                <td class="brainz-id-cell"></td>
+              </tr>
             </table>
-
-             <span id="music-brainz-steppers">
+            <span id="music-brainz-steppers">
             	<span id="music-brainz-steppers-prev"><form action="brainz-skip" id="brainz-skip-prev"><input type="submit" value="&lt; Previous" disabled="disabled" class="music-brainz-steppers-inactive"></form></span> 
-                <span id="music-brainz-steppers-next"><form action="brainz-skip" id="brainz-skip-next"><input type="submit" value="Next &gt;" disabled="disabled" class="music-brainz-steppers-inactive"></form></span>
-	          </span>
+              <span id="music-brainz-steppers-next"><form action="brainz-skip" id="brainz-skip-next"><input type="submit" value="Next &gt;" disabled="disabled" class="music-brainz-steppers-inactive"></form></span>
+	         </span>
         </div>
-    </section>
-
+      </div>
+      <div id="youtube-search-results">
+        <div id="youtube-results-header" class="youtube-results-header-hidden">Youtube results</div>
+        <div class="youtube-result-row-proto">
+          <div class="youtube-thumbnail">
+            <a href="" class="youtube-link">
+              <img class="youtube-thumb-image" src="https://i.ytimg.com/vi/H0m3Lfkzcw4/default.jpg" height=90 width=120>
+            </a>
+          </div>
+          <div class="youtube-info">
+            <div class="youtube-title">
+              Channel: LyricsUnlimited
+            </div>
+            <div class="youtube-description">
+              Happy - Pharrell Williams ------------------------------------------------------------ Lyrics It might seem crazy what I'm about to say Sunshine she's here, you can take a ...
+            </div>
+            <div class="youtube-date">
+              2014-01-22T20:25:15.000Z
+            </div>
+          </div>
+        </div>
+      </div>
     <!-- Apple/Amazon/Spotify?? -->
 
 
