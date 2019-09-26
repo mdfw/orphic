@@ -9,6 +9,7 @@ Search MusicBrainz and YouTube for information about songs.
 * jQuery
 * Javascript
 * CSS
+* Oracle
 
 ## Acknowledgements
 * Uses Lyre by Andrejs Kirma from the Noun Project under CC BY 3.0 US
